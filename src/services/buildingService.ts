@@ -8,12 +8,14 @@ import IBuildingRepo from '../services/IRepos/IBuildingRepo';
 import IBuildingService from './IServices/IBuildingService';
 import { Result } from "../core/logic/Result";
 import { BuildingMap } from "../mappers/BuildingMap";
+import config from '../../config';
 
 @Service()
 export default class BuildingService implements IBuildingService {
   constructor(
-    @Inject('buildingRepo') private buildingRepo: IBuildingRepo
-  ) {}
+    @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo,
+    @Inject('logger') private logger,
+) {}
 
   public async getBuilding(buildingId: string): Promise<Result<IBuildingDTO>> {
     try {
@@ -44,7 +46,7 @@ export default class BuildingService implements IBuildingService {
     }
   }
 
-  public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+  public async editBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
     try {
       const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
       if (building === null) {
@@ -60,4 +62,15 @@ export default class BuildingService implements IBuildingService {
       throw e;
     }
   }
+
+  public async getAllBuildings(): Promise<Result<IBuildingDTO[]>> {
+    try {
+        const buildings = await this.buildingRepo.findAll();
+        const buildingDTOs = buildings.map(building => BuildingMap.toDTO(building) as IBuildingDTO);
+        return Result.ok<IBuildingDTO[]>(buildingDTOs);
+    } catch (e) {
+        return Result.fail<IBuildingDTO[]>(e);
+    }
+  }
+
 }

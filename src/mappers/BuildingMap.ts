@@ -2,6 +2,7 @@ import { Mapper } from "../core/infra/Mapper";
 import { Building } from '../domain/building';
 import IBuildingDTO from '../dto/IBuildingDTO';
 import { IBuildingPersistence } from '../dataschema/IBuildingPersistence';
+import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 
 export class BuildingMap extends Mapper<Building> {
   public static toDTO(building: Building): IBuildingDTO {
@@ -13,11 +14,13 @@ export class BuildingMap extends Mapper<Building> {
   }
 
   public static toDomain(raw: any): Building {
-    const buildingOrError = Building.create({
-      id: raw._id.toString(),
-      name: raw.name,
-      floors: raw.floors
-    });
+    const buildingOrError = Building.create(
+      {
+        name: raw.name,
+        floors: raw.floors
+      },
+      new UniqueEntityID(raw._id.toString())
+    );
 
     buildingOrError.isFailure ? console.log(buildingOrError.error) : '';
     return buildingOrError.isSuccess ? buildingOrError.getValue() : null;

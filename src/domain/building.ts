@@ -6,6 +6,7 @@ import { BuildingId } from "./buildingId";
 
 interface BuildingProps {
   name: string;
+  // TODO: floors has to be Entity
   floors: string[];
 }
 
@@ -22,8 +23,16 @@ export class Building extends AggregateRoot<BuildingProps> {
     return this.props.name;
   }
 
+  set name(value: string) {
+    this.props.name = value;
+  }
+
   get floors(): string[] {
     return this.props.floors;
+  }
+
+  set floors(value: string[]) {
+    this.props.floors = value;
   }
 
   private constructor(props: BuildingProps, id?: UniqueEntityID) {

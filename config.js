@@ -19,7 +19,7 @@ export default {
   /**
    * That long string from mlab
    */
-  databaseURL: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/test",
+  databaseURL: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/laboratory",
 
   /**
    * Your secret sauce
@@ -44,6 +44,10 @@ export default {
     role: {
       name: "RoleController",
       path: "../controllers/roleController"
+    },
+    building: {
+      name: "BuildingController",
+      path: "../controllers/buildingController"
     }
   },
 
@@ -55,6 +59,10 @@ export default {
     user: {
       name: "UserRepo",
       path: "../repos/userRepo"
+    },
+    building: {
+      name: "BuildingRepo",
+      path: "../repos/buildingRepo"
     }
   },
 
@@ -62,6 +70,10 @@ export default {
     role: {
       name: "RoleService",
       path: "../services/roleService"
+    },
+    building: {
+      name: "BuildingService",
+      path: "../services/buildingService"
     }
   },
 };

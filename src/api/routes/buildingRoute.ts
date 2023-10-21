@@ -30,4 +30,7 @@ export default (app: Router) => {
     }),
     (req, res, next) => ctrl.editBuilding(req, res, next)
   );
+
+  route.get('/', 
+  (req, res, next) => ctrl.getAllBuildings(req, res, next));
 };
