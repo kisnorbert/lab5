@@ -3,11 +3,13 @@ import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { BuildingId } from "./buildingId";
+import { Floor } from "./floor";
+import { List } from "lodash";
 
 interface BuildingProps {
   name: string;
   // TODO: floors has to be Entity
-  floors: string[];
+  floors: Floor[];
 }
 
 export class Building extends AggregateRoot<BuildingProps> {
@@ -15,8 +17,8 @@ export class Building extends AggregateRoot<BuildingProps> {
     return this._id;
   }
 
-  get roleId (): BuildingId {
-    return new BuildingId(this.roleId.toValue());
+  get buildingId (): BuildingId {
+    return new BuildingId(this.buildingId.toValue());
   }
 
   get name(): string {
@@ -27,11 +29,11 @@ export class Building extends AggregateRoot<BuildingProps> {
     this.props.name = value;
   }
 
-  get floors(): string[] {
+  get floors(): Floor[] {
     return this.props.floors;
   }
 
-  set floors(value: string[]) {
+  set floors(value: Floor[]) {
     this.props.floors = value;
   }
 
