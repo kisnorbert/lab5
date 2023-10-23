@@ -7,7 +7,6 @@ import { Robottype } from "./robottype";
 
 interface RobotProps {
     name : string;
-    robottype : Robottype;
   }
 
   export class Robot extends AggregateRoot<RobotProps> {
@@ -30,19 +29,13 @@ interface RobotProps {
         this.props.name = value;
     }
 
-    get robottype(): Robottype{
-        return this.props.robottype;
-    }
-    set robottype(value:Robottype){
-        this.props.robottype = value;
-    }
+
 
     public static create(props: Robot, id?: UniqueEntityID): Result<Robot> {
       const isValidName = !!props.name && props.name.trim().length > 0;
-      const isValidRobottype = !!props.robottype;
       
   
-      if (!isValidName || !isValidRobottype) {
+      if (!isValidName) {
         return Result.fail<Robot>('Invalid robot properties');
       }
   

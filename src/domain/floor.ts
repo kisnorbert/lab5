@@ -4,12 +4,14 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Room } from "./room";
 import { FloorId } from "./floorId";
+import { FloorMap } from "./map";
 
 
 
 interface FloorProp {
     name : string;
     rooms : Room[];
+    floormap : FloorMap;
   }
 
   export class Floor extends Entity<FloorProp> {
@@ -37,6 +39,13 @@ interface FloorProp {
     }
     set rooms(value:Room[]){
         this.props.rooms = value;
+    }
+    get floormap(): FloorMap {
+      return this.props.floormap;
+    }
+  
+    set floormap(value: FloorMap) {
+      this.props.floormap = value;
     }
 
     public static create(props: FloorProp, id?: UniqueEntityID): Result<Floor> {

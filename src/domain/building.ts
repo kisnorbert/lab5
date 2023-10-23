@@ -9,7 +9,7 @@ interface BuildingProps {
   name: string;
   // TODO: floors has to be Entity
   floors: Floor[];
-  elevator : Elevator;
+  elevator? : Elevator;
 }
 
 export class Building extends Entity<BuildingProps> {
@@ -35,6 +35,14 @@ export class Building extends Entity<BuildingProps> {
 
   set floors(value: Floor[]) {
     this.props.floors = value;
+  }
+
+  get elevator(): Elevator {
+    return this.props.elevator;
+  }
+
+  set elevator(value: Elevator) {
+    this.props.elevator = value;
   }
 
   private constructor(props: BuildingProps, id?: UniqueEntityID) {

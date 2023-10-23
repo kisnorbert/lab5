@@ -3,6 +3,7 @@ import { Entity } from "../core/domain/Entity";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Tasktype } from "./tasktype";
+import { Robot } from "./robot";
 
 
 
@@ -10,6 +11,7 @@ import { Tasktype } from "./tasktype";
 interface RobotypeProps {
     name : string;
     tasktypes : Tasktype[];
+    robots: Robot[]
   }
 
   export class Robottype extends Entity<RobotypeProps> {
@@ -37,6 +39,12 @@ interface RobotypeProps {
     }
     set tasktypes(value:Tasktype[]){
         this.props.tasktypes = value;
+    }
+    get robots(): Robot[]{
+      return this.props.robots;
+    }
+    set robots(value:Robot[]){
+      this.props.robots = value;
     }
 
     public static create(props: RobotypeProps, id?: UniqueEntityID): Result<Robottype> {

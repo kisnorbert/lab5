@@ -2,7 +2,6 @@ import { IntegerType } from "mongodb";
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
-import { Building } from "./building";
 import { Floor } from "./floor";
 import { ElevatorId } from "./elevatorId";
 import { Entity } from "../core/domain/Entity";
@@ -10,9 +9,7 @@ import { Entity } from "../core/domain/Entity";
 
 interface ElevatorProp {
   name: string;
-  building: Building;
-  elevatorfloors: Floor[];
-  
+  elevatorFloors: Floor[];
 }
 
 export class Elevator extends Entity<ElevatorProp> {
@@ -33,12 +30,12 @@ export class Elevator extends Entity<ElevatorProp> {
   }
 
 
-  get elevatorfloors(): Floor[] {
-    return this.props.elevatorfloors;
+  get elevatorFloors(): Floor[] {
+    return this.props.elevatorFloors;
   }
 
-  set elevatorfloors(value: Floor[]) {
-    this.props.elevatorfloors = value;
+  set elevatorFloors(value: Floor[]) {
+    this.props.elevatorFloors = value;
   }
 
 
@@ -49,7 +46,7 @@ export class Elevator extends Entity<ElevatorProp> {
 
   public static create(props: ElevatorProp, id?: UniqueEntityID): Result<Elevator> {
 
-    const isValidelevatorfloorarray= Array.isArray(props.elevatorfloors) && props.elevatorfloors.length > 1;
+    const isValidelevatorfloorarray= Array.isArray(props.elevatorFloors) && props.elevatorFloors.length > 1;
     
 
     if (!isValidelevatorfloorarray) {
