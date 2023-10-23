@@ -5,6 +5,7 @@ import { Result } from "../core/logic/Result";
 import { Building } from "./building";
 import { Floor } from "./floor";
 import { ElevatorId } from "./elevatorId";
+import { Entity } from "../core/domain/Entity";
 
 
 interface ElevatorProp {
@@ -14,7 +15,7 @@ interface ElevatorProp {
   
 }
 
-export class Elevator extends AggregateRoot<ElevatorProp> {
+export class Elevator extends Entity<ElevatorProp> {
   get id(): UniqueEntityID {
     return this._id;
   }
@@ -31,13 +32,6 @@ export class Elevator extends AggregateRoot<ElevatorProp> {
     this.props.name = value;
   }
 
-  get building(): Building {
-    return this.props.building;
-  }
-
-  set building(value: Building) {
-    this.props.building = value;
-  }
 
   get elevatorfloors(): Floor[] {
     return this.props.elevatorfloors;
@@ -54,11 +48,11 @@ export class Elevator extends AggregateRoot<ElevatorProp> {
   }
 
   public static create(props: ElevatorProp, id?: UniqueEntityID): Result<Elevator> {
-    const isValidelevatorFloor = props.elevatorfloors.every(t=>props.building.floors.some(r=>r.floorId.equals(t.floorId)));
-    const isValidelevatorfloorarray= Array.isArray(props.elevatorfloors) && props.elevatorfloors.length > 0;
+
+    const isValidelevatorfloorarray= Array.isArray(props.elevatorfloors) && props.elevatorfloors.length > 1;
     
 
-    if (!isValidelevatorFloor || !isValidelevatorfloorarray) {
+    if (!isValidelevatorfloorarray) {
       return Result.fail<Elevator>('Invalid elevator properties');
     }
 

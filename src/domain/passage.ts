@@ -5,6 +5,7 @@ import { Result } from "../core/logic/Result";
 import { Building } from "./building";
 import { Floor } from "./floor";
 import { PassageId } from "./passageId";
+import { Entity } from "../core/domain/Entity";
 
 
 interface PassageProp {
@@ -16,7 +17,7 @@ interface PassageProp {
   
 }
 
-export class Passage extends AggregateRoot<PassageProp> {
+export class Passage extends Entity<PassageProp> {
   get id(): UniqueEntityID {
     return this._id;
   }

@@ -1,18 +1,18 @@
-import { IntegerType } from "mongodb";
-import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { BuildingId } from "./buildingId";
 import { Floor } from "./floor";
-import { List } from "lodash";
+import { Elevator } from "./elevator";
+import { Entity } from "../core/domain/Entity";
 
 interface BuildingProps {
   name: string;
   // TODO: floors has to be Entity
   floors: Floor[];
+  elevator : Elevator;
 }
 
-export class Building extends AggregateRoot<BuildingProps> {
+export class Building extends Entity<BuildingProps> {
   get id(): UniqueEntityID {
     return this._id;
   }
