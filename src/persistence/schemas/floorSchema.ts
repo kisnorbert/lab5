@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import roomSchema from "./roomSchema";
+import { IFloorPersistence } from "../../dataschema/IFloorPersistence";
 
 const floorSchema = new mongoose.Schema({
     id: { type: String, required: true },
     name: { type: String, required: true },
-    rooms: [roomSchema]
+    rooms: {type: [String], required: false }
   });
 
 
-export default mongoose.model('Floor', floorSchema);
+export default mongoose.model<IFloorPersistence & mongoose.Document>('Floor', floorSchema);

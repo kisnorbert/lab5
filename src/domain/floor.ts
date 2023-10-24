@@ -11,7 +11,7 @@ import { FloorMap } from "./map";
 interface FloorProp {
     name : string;
     rooms : Room[];
-    floormap : FloorMap;
+    //floormap : FloorMap;
   }
 
   export class Floor extends Entity<FloorProp> {
@@ -40,14 +40,15 @@ interface FloorProp {
     set rooms(value:Room[]){
         this.props.rooms = value;
     }
+    /*
     get floormap(): FloorMap {
       return this.props.floormap;
     }
-  
+ 
     set floormap(value: FloorMap) {
       this.props.floormap = value;
     }
-
+    */
     public static create(props: FloorProp, id?: UniqueEntityID): Result<Floor> {
       const isValidName = !!props.name && props.name.trim().length > 0;
       const isValidRoom = Array.isArray(props.rooms) &&props.rooms.length>0;

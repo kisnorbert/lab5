@@ -4,6 +4,6 @@ import { Floor } from "../domain/floor";
 export interface IBuildingPersistence {
     _id: string;
     name: string;
-    elevator?: Elevator;
-    floors: Floor[];
+    elevator?: string;
+    floors: string[];
   }

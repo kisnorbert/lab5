@@ -11,7 +11,7 @@ import { CampusMap } from "../mappers/CampusMap";
 
 
 @Service()
-export default class CampusController {
+export default class RoomController {
   constructor(
     @Inject(config.services.campus.name) private campusServiceInstance : ICampusService
 ) {}

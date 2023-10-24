@@ -12,6 +12,9 @@ export default class BuildingRepo implements IBuildingRepo {
   constructor(
     @Inject('buildingSchema') private buildingSchema: Model<IBuildingPersistence & Document>
   ) {}
+  findByDomainId(buildingId: string): Promise<Building> {
+    throw new Error('Method not implemented.');
+  }
 
   private createBaseQuery(): any {
     return {
@@ -27,32 +30,26 @@ export default class BuildingRepo implements IBuildingRepo {
   }
 
   public async save(building: Building): Promise<Building> {
-    const query = { domainId: building.id.toString() };
-    const buildingDocument = await this.buildingSchema.findOne(query);
+    const query = { domainId: building.id.toString() }; 
+
+    const buildingDocument = await this.buildingSchema.findOne( query );
 
     try {
-      if (buildingDocument === null) {
+      if (buildingDocument === null ) {
         const rawBuilding: any = BuildingMap.toPersistence(building);
+
         const buildingCreated = await this.buildingSchema.create(rawBuilding);
+
         return BuildingMap.toDomain(buildingCreated);
       } else {
         buildingDocument.name = building.name;
-        buildingDocument.floors = building.floors;
+        //buildingDocument.elevator = building.elevator;
         await buildingDocument.save();
+
         return building;
       }
     } catch (err) {
       throw err;
-    }
-  }
-
-  public async findByDomainId(buildingId: string): Promise<Building> {
-    const query = { domainId: buildingId };
-    const buildingRecord = await this.buildingSchema.findOne(query as FilterQuery<IBuildingPersistence & Document>);
-    if (buildingRecord != null) {
-      return BuildingMap.toDomain(buildingRecord);
-    } else {
-      return null;
     }
   }
 

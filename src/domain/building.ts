@@ -8,7 +8,7 @@ import { Entity } from "../core/domain/Entity";
 interface BuildingProps {
   name: string;
   // TODO: floors has to be Entity
-  floors: Floor[];
+  floors?: Floor[];
   elevator? : Elevator;
 }
 

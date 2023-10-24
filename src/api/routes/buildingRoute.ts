@@ -15,7 +15,8 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         name: Joi.string().required(),
-        floors: Joi.array().items(Joi.string()).required()
+        floors: Joi.array().items(Joi.string()).required(),
+        elevator: Joi.string().required()
       })
     }),
     (req, res, next) => ctrl.createBuilding(req, res, next)
@@ -25,7 +26,8 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         name: Joi.string().optional(),
-        floors: Joi.array().items(Joi.string()).optional()
+        floors: Joi.array().items(Joi.string()).optional(),
+        elevator: Joi.string().optional()
       })
     }),
     (req, res, next) => ctrl.editBuilding(req, res, next)
